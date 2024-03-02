@@ -1,0 +1,11 @@
+1,Tarea 1,25
+1,Tarea 2,50
+1,Tarea 3,25
+2,Tarea 1,50
+2,Tarea 2,50
+3,Tarea 1,25
+3,Tarea 2,25
+3,Tarea 3,25
+3,Tarea 4,25
+4,Tarea 1,50
+4,Tarea 2,50
