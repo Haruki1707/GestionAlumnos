@@ -4,7 +4,7 @@ import helpers.Model
 import stores.AssessmentStore
 import stores.StudentStore
 
-data class Course(var name: String, var students_ids: List<String>): Model() {
+data class Course(var name: String, var students_ids: ArrayList<String>): Model() {
     val assessments: List<Assessment>
         get() = AssessmentStore.assessments.filter { it.course_id == this.id.toString() }
 

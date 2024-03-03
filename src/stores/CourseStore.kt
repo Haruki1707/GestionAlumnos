@@ -15,7 +15,7 @@ object CourseStore: FileBase() {
     }
 
     override fun lineToModel(data: List<String>): Model {
-        return Course(data[0], data[1].split("|"))
+        return Course(data[0], ArrayList(data[1].split("|")))
     }
 
     override fun modelToLine(model: Model): String {
