@@ -1,13 +1,15 @@
 import controllers.AssessmentController
 import controllers.CourseController
 import controllers.StudentController
-import models.Course
 import services.Menu
+import services.Menu.addSubOption
 
 fun main() {
     // Gestión de alumnos
-    Menu.addOption("Listar alumnos", StudentController::index)
-    Menu.addOption("Añadir alumnos",StudentController::create)
+    Menu.addSubMenu("Gestión de alumnos").apply {
+        addSubOption("Listar alumnos", StudentController::index)
+        addSubOption("Añadir alumnos", StudentController::create)
+    }
 
 
     // Gestión de cursos
