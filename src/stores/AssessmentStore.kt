@@ -15,11 +15,11 @@ object AssessmentStore: FileBase() {
     }
 
     override fun lineToModel(data: List<String>): Model {
-        return Assessment(data[0], data[1], data[2].toInt())
+        return Assessment(data[0].toInt(), data[1])
     }
 
     override fun modelToLine(model: Model): String {
         val assessment = model as Assessment
-        return "${assessment.name},${assessment.course_id},${assessment.percentage}"
+        return "${assessment.name},${assessment.course_id}"
     }
 }
