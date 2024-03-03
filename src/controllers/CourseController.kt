@@ -5,17 +5,20 @@ import stores.CourseStore
 import stores.StudentStore
 
 object CourseController {
-    fun index() {
-        println("CURSOS REGISTRADOS")
+    fun index(showTitle: Boolean = true) {
+        if (showTitle)
+            println("CURSOS REGISTRADOS")
         println("Código\tNombre\t\tAlumnos inscritos")
         CourseStore.courses.forEach {
             println("${it.id}\t\t${it.name}\t\t${it.students.count()}")
         }
-        readln()
+        if (showTitle)
+            readln()
     }
 
     fun show() {
         println("MOSTRAR DETALLES DE UN CURSO")
+        index(false)
         println("Ingrese el código del curso que desea mostrar:")
         val courseId = readln()
 

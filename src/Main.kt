@@ -1,21 +1,32 @@
+import controllers.AssessmentController
 import controllers.CourseController
 import controllers.StudentController
 import models.Course
 import services.Menu
 
 fun main() {
-    //Menu.addOption("Test", TestController::test)
-    println("GESTIÓN DE ALUMNOS")
+    // Gestión de alumnos
     Menu.addOption("Listar alumnos", StudentController::index)
     Menu.addOption("Añadir alumnos",StudentController::create)
 
 
-    println("GESTIÓN DE CURSOS")
+    // Gestión de cursos
     Menu.addOption("Listar cursos", CourseController::index)
     Menu.addOption("Mostrar datos de un curso", CourseController::show)
     Menu.addOption("Agregar un curso nuevo", CourseController::create)
     Menu.addOption("Actualizar un curso", CourseController::update)
     Menu.addOption("Eliminar un curso", CourseController::delete)
+
+    // Gestión de evaluaciones
+    Menu.addOption("Listar evaluaciones", AssessmentController::index)
+    Menu.addOption("Agregar asignaciones a un curso", AssessmentController::create)
+    Menu.addOption("Actualizar asignaciones de un curso", AssessmentController::update)
+    Menu.addOption("Eliminar asignaciones de un curso", AssessmentController::delete)
+
+    // Gestión de notas
+    Menu.addOption("Listar notas de un estudiante", controllers.GradesController::indexStudent)
+    Menu.addOption("Listar notas de un curso", controllers.GradesController::indexCourse)
+    Menu.addOption("Actualizar notas", controllers.GradesController::update)
 
     runApp()
 }
