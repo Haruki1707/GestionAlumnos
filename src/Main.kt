@@ -8,6 +8,7 @@ fun main() {
     // Gestión de alumnos
     Menu.addOption("Listar alumnos", StudentController::index)
     Menu.addOption("Añadir alumnos",StudentController::create)
+    Menu.addOption("Mostrar un expediente académico", StudentController::show)
 
 
     // Gestión de cursos
