@@ -9,7 +9,7 @@ fun main() {
     Menu.addOption("Listar cursos", CourseController::index)
     Menu.addOption("Mostrar datos de un curso", CourseController::show)
     Menu.addOption("Agregar un curso nuevo", CourseController::create)
-    //Menu.addOption("Actualizar un curso", CourseController::update)
+    Menu.addOption("Actualizar un curso", CourseController::update)
     Menu.addOption("Eliminar un curso", CourseController::delete)
 
     runApp()
