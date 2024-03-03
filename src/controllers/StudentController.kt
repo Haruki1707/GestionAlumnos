@@ -11,6 +11,17 @@ object StudentController {
         readln()
     }
 
-    
+    fun create() {
+        println("CREACIÓN DE UN NUEVO ALUMNO")
+        println("Ingrese los nombres de los nuevos alumnos, separados por comas:")
+        val students = readln().split(",").map { it.trim() }
+
+        students.forEach {
+            StudentStore.add(Student(it))
+            println("Alumnos añadido correctamente.")
+        }
+
+        readln()
+    }
 }
 
