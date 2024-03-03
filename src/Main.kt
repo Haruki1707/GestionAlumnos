@@ -24,8 +24,6 @@ fun main() {
     Menu.addOption("Eliminar asignaciones de un curso", AssessmentController::delete)
 
     // Gestión de notas
-    Menu.addOption("Listar notas de un estudiante", controllers.GradesController::indexStudent)
-    Menu.addOption("Listar notas de un curso", controllers.GradesController::indexCourse)
     Menu.addOption("Actualizar notas", controllers.GradesController::update)
 
     runApp()
