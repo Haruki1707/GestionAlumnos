@@ -1,7 +1,6 @@
 package controllers
 
 import models.Course
-import models.Student
 import stores.CourseStore
 import stores.StudentStore
 
@@ -16,7 +15,7 @@ object CourseController {
     }
 
     fun show() {
-        println("MOSTRAR UN CURSO")
+        println("MOSTRAR DETALLES DE UN CURSO")
         println("Ingrese el código del curso que desea mostrar:")
         val courseId = readln()
 
@@ -56,6 +55,19 @@ object CourseController {
             CourseStore.add(Course(courseName, verifiedStudents))
             println("Curso creado con éxito y sin añadir alumnos.")
         }
+        readln()
+    }
+
+    fun delete() {
+        println("ELIMINAR UN CURSO")
+        println("Ingrese el código del curso que desea eliminar:")
+        val courseID = readln()
+
+        CourseStore.courses.find { it.id == courseID.toInt() }?.let {
+            CourseStore.courses.remove(it)
+            CourseStore.saveFile()
+            println("El curso con el código ${it.id} se eliminó correctamente.")
+        } ?: println("El id no corresponde a ningún curso.")
         readln()
     }
 }
