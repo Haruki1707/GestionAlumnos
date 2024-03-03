@@ -39,7 +39,7 @@ abstract class FileBase {
     abstract fun modelToLine(model: Model): String
 
     fun add(model: Model) {
-        model.id = data.size + 1
+        model.id = data.last().id + 1
         data.add(model)
         saveFile()
     }
