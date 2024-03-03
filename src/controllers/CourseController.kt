@@ -6,6 +6,17 @@ import stores.CourseStore
 import stores.StudentStore
 
 object CourseController {
+    fun index() {
+        println("CURSOS REGISTRADOS")
+        println("Código\tNombre\t\tAlumnos inscritos")
+        CourseStore.courses.forEach {
+            println("${it.id}\t\t${it.name}\t\t${it.students.count()}")
+        }
+        readln()
+    }
+
+
+
     fun create() {
         println("CREACIÓN DE UN CURSO NUEVO")
         println("Ingrese el nombre del curso:")
