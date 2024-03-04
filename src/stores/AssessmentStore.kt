@@ -20,6 +20,6 @@ object AssessmentStore: FileBase() {
 
     override fun modelToLine(model: Model): String {
         val assessment = model as Assessment
-        return "${assessment.name},${assessment.course_id}"
+        return "${assessment.course_id},${assessment.name}"
     }
 }

@@ -2,14 +2,16 @@ package controllers
 
 import helpers.readInt
 import models.Student
+import stores.GradeStore
 import stores.StudentStore
 
 object StudentController {
-    fun index(showIndex: Boolean = true){
-        if (showIndex) println("ALUMNOS REGISTRADOS")
+    fun index(showTitle: Boolean = true){
+        if (showTitle) println("ALUMNOS REGISTRADOS")
         println("Codigo\tNombre")
         StudentStore.students.forEach { student: Student -> println("${student.id}\t\t${student.name}\t") }
-        readln()
+        if (showTitle)
+            readln()
     }
 
     fun show() {
@@ -18,14 +20,13 @@ object StudentController {
         println("Ingrese el código del estudiante:")
         val studentId = readInt()
         StudentStore.students.find { studentId == it.id }?.let { student ->
-            println("EXPEDIENTE ACADÉMICO DE ${student.name}")
+            println("\nEXPEDIENTE ACADÉMICO DE ${student.name}")
             student.courses.forEach {course ->
-                println("CURSO: ${course.id} ${course.name}")
+                println("\nCURSO: ${course.name}")
                 println("Actividad\tNota")
                 course.assessments.forEach { assessment ->
-                    student.grades.find { assessment.id == it.assessment_id }?.let {
-                        println("${assessment.name}\t${it.grade}")
-                    }
+                    val grade = GradeStore.grades.find { it.student_id == student.id && it.assessment_id == assessment.id }
+                    println("${assessment.name}\t${grade?.grade ?: "N/A"}")
                 }
             }
         } ?: println("No existe un estudiante registrado con el código proporcionado.")

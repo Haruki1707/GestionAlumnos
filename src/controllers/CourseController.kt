@@ -1,8 +1,11 @@
 package controllers
 
+import helpers.clearScreen
+import helpers.readInt
 import models.Course
 import stores.CourseStore
 import stores.StudentStore
+import kotlin.math.roundToLong
 
 object CourseController {
     fun index(showTitle: Boolean = true) {
@@ -20,14 +23,22 @@ object CourseController {
         println("MOSTRAR DETALLES DE UN CURSO")
         index(false)
         println("Ingrese el código del curso que desea mostrar:")
-        val courseId = readln()
+        val courseId = readInt()
+        clearScreen()
 
-        CourseStore.courses.find { it.id == courseId.toInt()}?.let { course ->
+        CourseStore.courses.find { it.id == courseId }?.let { course ->
+            println("DETALLES DEL CURSO")
             println("Código\tNombre\tAlumnos inscritos")
             println("${course.id}\t\t${course.name}\t\t${course.students.count()}")
-            println("ID\tAlumnos inscritos")
-            course.students.forEach {
-                println("${it.id}\t${it.name}")
+            println("INFORME DE CALIFICACIONES")
+            println("ID\tAlumnos inscritos\tPromedio")
+
+            course.students.forEach { student ->
+                val average = course.assessments.map { assessment ->
+                    student.grades.find { it.assessment_id == assessment.id }?.grade ?: 0.0
+                }.average().toBigDecimal().setScale(2, 0).toDouble()
+                if (!average.isNaN()) println("${student.id}\t${student.name}\t\t${average}")
+                else println("${student.id}\t${student.name}\t\tNo calificado")
             }
         } ?: println("El curso no existe en el registro.")
 
@@ -64,14 +75,14 @@ object CourseController {
     fun update() {
         println("ACTUALIZAR ALUMNOS INSCRITOS")
         println("Ingrese el código del curso a actualizar:")
-        val courseId = readln()
+        val courseId = readInt()
 
-        CourseStore.courses.find { it.id == courseId.toInt() }?. let { course ->
+        CourseStore.courses.find { it.id == courseId }?. let { course ->
             println("1. Agregar alumnos al curso\n2. Eliminar alumnos del curso")
             println("Ingresa el número de la opción que desea realizar:")
-            val option = readln()
+            val option = readInt()
 
-            when (option.toInt()) {
+            when (option) {
                 1 -> {
                     println("Ingrese los ids de los estudiantes que inscribirá al curso, separados por comas:")
                     val studentsIds = readln().split(",").map { it.trim() }
@@ -98,9 +109,7 @@ object CourseController {
                         }
                     }
                 }
-                else -> {
-                    println("La opción digitada no existe.")
-                }
+                else -> println("La opción digitada no existe.")
             }
         } ?: println("El curso solicitado no existe.")
 
@@ -110,10 +119,11 @@ object CourseController {
 
     fun delete() {
         println("ELIMINAR UN CURSO")
+        index(false)
         println("Ingrese el código del curso que desea eliminar:")
-        val courseID = readln()
+        val courseID = readInt()
 
-        CourseStore.courses.find { it.id == courseID.toInt() }?.let {
+        CourseStore.courses.find { it.id == courseID }?.let {
             CourseStore.courses.remove(it)
             CourseStore.saveFile()
             println("El curso con el código ${it.id} se eliminó correctamente.")
